@@ -1,0 +1,25 @@
+.popup {
+  width: 480px;
+  height: 140px;
+  font-size: 16px;
+}
+
+.popup__title {
+  padding: 1rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  border-left: 1px solid #6acb9a;
+}
+
+.popup__line {
+  padding: 0.4rem
+}
+
+.popup__link {
+    color: #007b47;
+}
+
+p, h1 {
+    margin: 0;
+    padding: 0;
+}

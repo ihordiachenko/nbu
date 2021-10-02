@@ -1,17 +1,14 @@
-let color = '#3aa757';
-
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({ color });
-  console.log('Default background color set to %cgreen', `color: ${color}`);
+  console.log('Setting up interval')
 
-  chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-    // read changeInfo data and do something with it
-    // like send the new url to contentscripts.js
-    console.log(changeInfo)
-      chrome.tabs.sendMessage( tabId, {
-        message: 'hello!',
-        url: changeInfo.url
-      })
-  }
-);
-});
+  setInterval(async () => {
+    const response = await fetch('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json')
+    const rates = await response.json()
+    const message = {name: 'rates', payload: {
+        XAU: rates.find(x => x.cc == 'XAU'),
+        XAG: rates.find(x => x.cc == 'XAG')
+    }}
+    chrome.storage.sync.set({ rates: message });
+    chrome.tabs.query({}, (tabs) => tabs.forEach(tab => chrome.tabs.sendMessage(tab.id, message)));
+  }, 5000)
+})
