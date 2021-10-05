@@ -1,8 +1,3 @@
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-      console.log('rates', request)
-});
-
 const el = document.querySelector("[name=quantity]")
 if (el) {
     const quantity = el.getAttribute('max')
@@ -13,4 +8,3 @@ if (el) {
     quantityLabel.innerHTML = `<span>В наявності:</span>&nbsp;${quantity} шт`
     props.prepend(quantityLabel)
 }
-

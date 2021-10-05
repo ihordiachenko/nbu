@@ -9,6 +9,5 @@ chrome.runtime.onInstalled.addListener(() => {
         XAG: rates.find(x => x.cc == 'XAG')
     }}
     chrome.storage.sync.set({ rates: message });
-    chrome.tabs.query({}, (tabs) => tabs.forEach(tab => chrome.tabs.sendMessage(tab.id, message)));
   }, 5000)
 })
